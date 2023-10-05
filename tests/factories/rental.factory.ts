@@ -3,11 +3,15 @@ import { Rental } from "@prisma/client";
 
 export type inputRental = Omit<Rental, "id">;
 
-export function createRandomRental(userId:number){
+export function createRandomRental(id:number){
+    const currentDate = new Date();
+    const endDate = new Date(currentDate);
+    endDate.setDate(currentDate.getDate() + 7);
+
     const rental: inputRental = {
-        date: faker.date.past(),
-        endDate: faker.date.future(),
-        userId,
+        date: currentDate,
+        endDate: endDate,
+        userId: id,
         closed: false
     };
     return rental;
